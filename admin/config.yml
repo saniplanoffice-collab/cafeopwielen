@@ -1,0 +1,22 @@
+backend:
+  name: git-gateway
+  branch: main
+publish_mode: editorial_workflow
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+collections:
+  - name: "blog"
+    label: "Blogartikels"
+    folder: "blog"
+    create: true
+    extension: "md"
+    format: "frontmatter"
+    slug: "{{slug}}"
+    fields:
+      - { label: "Titel", name: "title", widget: "string" }
+      - { label: "Publicatiedatum", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD-MM-YYYY", time_format: false }
+      - { label: "Meta-beschrijving", name: "description", widget: "text" }
+      - { label: "Categorie", name: "category", widget: "string", default: "Journal" }
+      - { label: "Uitgelichte afbeelding", name: "featuredImage", widget: "image" }
+      - { label: "Alt-tekst afbeelding", name: "featuredAlt", widget: "string" }
+      - { label: "Inhoud", name: "body", widget: "markdown" }

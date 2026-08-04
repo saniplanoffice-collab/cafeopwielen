@@ -1,0 +1,79 @@
+<!doctype html><html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Stel jouw VARGO-avond samen | Aanvraag</title><meta name="description" content="Vraag in twee minuten jullie VARGO-avond aan. Vertel ons datum, locatie, gezelschap en drankvoorkeur, en ontvang een persoonlijk voorstel."><link rel="canonical" href="https://vargo.be/aanvraag.html"><meta name="robots" content="index,follow"><meta property="og:type" content="website"><meta property="og:title" content="Stel jouw VARGO-avond samen"><meta property="og:description" content="Vertel ons jullie avond, wij brengen de bruine kroeg."><meta property="og:image" content="https://vargo.be/images/og.jpg"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://vargo.be/images/og.jpg"><link rel="stylesheet" href="/assets/css/site.css"></head><body>
+<form name="vargo-aanvraag" netlify netlify-honeypot="bot-field" hidden><input name="datum"><input name="datum-alt"><input name="flexibel"><input name="postcode"><input name="gemeente"><input name="gelegenheid"><input name="gasten"><input name="formule"><input name="dranken"><input name="merken"><input name="bediening"><input name="wens"><input name="voornaam"><input name="naam"><input name="email"><input name="telefoon"><input name="toestemming"><input name="bot-field"></form>
+<a class="skip-link" href="#inhoud">Ga naar inhoud</a><header class="site-header"><div class="wrap"><a class="brand" href="/index.html" aria-label="VARGO home"><i></i>VARGO</a><nav class="nav-list" aria-label="Hoofdnavigatie"><a href="/concept.html">Concept</a><a href="/aanbod.html">Aanbod</a><a href="/gelegenheden.html">Gelegenheden</a><a href="/galerij.html">Galerij</a><a href="/blog.html">Blog</a><a href="/faq.html">FAQ</a></nav><a class="button header-cta" href="/aanvraag.html" aria-current="page">Stel je avond samen <span>↗</span></a><button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false">Menu +</button><nav class="mobile-nav" data-mobile-nav aria-label="Mobiele navigatie"><a href="/concept.html">Concept</a><a href="/aanbod.html">Aanbod</a><a href="/gelegenheden.html">Gelegenheden</a><a href="/galerij.html">Galerij</a><a href="/blog.html">Blog</a><a href="/faq.html">FAQ</a></nav></div></header>
+<main id="inhoud"><section class="flow wrap">
+<div class="flow-head"><p class="eyebrow">Stel jouw VARGO-avond samen</p><h1>VERTEL ONS<br><em>JULLIE AVOND.</em></h1></div>
+<p class="flow-intro">Hoe beter we jullie avond begrijpen, hoe beter we VARGO kunnen samenstellen. De aanvraag duurt ongeveer twee minuten. Je hoeft nog niets definitief te beslissen.</p>
+<div class="flow-shell">
+<form name="vargo-aanvraag" method="POST" action="/bedankt.html" data-netlify="true" netlify-honeypot="bot-field" id="vargo-flow">
+<input type="hidden" name="form-name" value="vargo-aanvraag">
+<p hidden><label>Niet invullen <input name="bot-field"></label></p>
+<div class="flow-progress"><div class="bar"><i id="flow-bar"></i></div><span class="count" id="flow-count">Stap 1 van 5</span></div>
+
+<div class="flow-step active" data-step="1">
+<h2>Wanneer?</h2>
+<p class="hint">Kies je gewenste datum. Nog niet zeker? Vink flexibel aan.</p>
+<label class="flow-field"><span>Gewenste datum</span><input type="date" name="datum" required></label>
+<div class="flow-row"><label class="flow-field"><span>Alternatieve datum</span><input type="date" name="datum-alt"></label><label class="flow-field"><span>Flexibel?</span><select name="flexibel"><option value="">Kies</option><option>Vaste datum</option><option>Enkele weken speling</option><option>Volledig flexibel</option></select></label></div>
+</div>
+
+<div class="flow-step" data-step="2">
+<h2>Waar?</h2>
+<p class="hint">Zo schatten we de afstand tot jullie locatie in.</p>
+<div class="flow-row"><label class="flow-field"><span>Postcode</span><input name="postcode" inputmode="numeric" required></label><label class="flow-field"><span>Gemeente</span><input name="gemeente" required></label></div>
+<label class="flow-field"><span>Wat vieren jullie?</span><select name="gelegenheid" required><option value="" selected disabled>Kies een gelegenheid</option><option>Verjaardag</option><option>Familiefeest</option><option>Huwelijk</option><option>Bedrijfsfeest</option><option>Communie of lentefeest</option><option>Vrijgezellenfeest</option><option>Match of sportevent</option><option>Andere</option></select></label>
+</div>
+
+<div class="flow-step" data-step="3">
+<h2>Hoe groot?</h2>
+<p class="hint">Een ruwe inschatting volstaat.</p>
+<label class="flow-field"><span>Aantal gasten</span><select name="gasten" required><option value="" selected disabled>Kies aantal</option><option>Tot 30</option><option>30 tot 75</option><option>75 tot 150</option><option>Meer dan 150</option></select></label>
+<label class="flow-field"><span>Welke formule spreekt aan?</span><select name="formule" required><option value="" selected disabled>Kies een formule</option><option>Nog niet zeker</option><option>Select (vanaf 895)</option><option>Signature (vanaf 1295)</option><option>Reserve (vanaf 1595)</option><option>Grand Open (vanaf 1995)</option></select></label>
+</div>
+
+<div class="flow-step" data-step="4">
+<h2>Wat drinken jullie graag?</h2>
+<p class="hint">Kies alles wat past. Meerdere mag.</p>
+<div class="choice-grid" data-multi="dranken">
+<label class="choice"><input type="checkbox" value="Pils">Pils<span class="tick">✓</span></label>
+<label class="choice"><input type="checkbox" value="Speciaalbier">Speciaalbier<span class="tick">✓</span></label>
+<label class="choice"><input type="checkbox" value="Wijn">Wijn<span class="tick">✓</span></label>
+<label class="choice"><input type="checkbox" value="Fris">Fris<span class="tick">✓</span></label>
+<label class="choice"><input type="checkbox" value="Alcoholvrij">Alcoholvrij<span class="tick">✓</span></label>
+<label class="choice"><input type="checkbox" value="Aperitief">Aperitief<span class="tick">✓</span></label>
+<label class="choice"><input type="checkbox" value="Sterke drank">Sterke drank<span class="tick">✓</span></label>
+<label class="choice"><input type="checkbox" value="Koffie">Koffie<span class="tick">✓</span></label>
+</div>
+<input type="hidden" name="dranken" id="field-dranken">
+<label class="flow-field" style="margin-top:20px"><span>Merken die zeker aanwezig moeten zijn (optioneel)</span><input name="merken" placeholder="Bijvoorbeeld een streekbier of huismerk"></label>
+<label class="flow-field"><span>Willen jullie bediening?</span><select name="bediening"><option value="" selected disabled>Kies</option><option>Geen bediening</option><option>Eén barman</option><option>Volledige service</option><option>Nog te bespreken</option></select></label>
+</div>
+
+<div class="flow-step" data-step="5">
+<h2>Bijna klaar.</h2>
+<p class="hint">Vertel ons wat de avond geslaagd maakt, dan laten we van ons horen.</p>
+<label class="flow-field"><span>Wat maakt deze avond geslaagd? (optioneel)</span><textarea name="wens" placeholder="Bijvoorbeeld: vooral speciaalbier, ook voldoende alcoholvrij, voetbal op tv en liefst bediening."></textarea></label>
+<div class="flow-row"><label class="flow-field"><span>Voornaam</span><input name="voornaam" autocomplete="given-name" required></label><label class="flow-field"><span>Naam</span><input name="naam" autocomplete="family-name" required></label></div>
+<div class="flow-row"><label class="flow-field"><span>E-mail</span><input type="email" name="email" autocomplete="email" required></label><label class="flow-field"><span>Telefoon</span><input type="tel" name="telefoon" autocomplete="tel" required></label></div>
+<label class="choice" style="margin-top:6px"><input type="checkbox" name="toestemming" value="ja" required>Ik ga akkoord dat VARGO mij contacteert over deze aanvraag.<span class="tick">✓</span></label>
+</div>
+
+<p class="flow-error" id="flow-error" role="alert"></p>
+<div class="flow-nav">
+<button type="button" class="flow-back" id="flow-back" hidden>← Terug</button>
+<button type="button" class="button" id="flow-next">Volgende <span>→</span></button>
+<button type="submit" class="button" id="flow-submit" hidden>Verstuur aanvraag <span>↗</span></button>
+</div>
+</form>
+
+<div class="flow-done" id="flow-done">
+<p class="eyebrow">Ontvangen</p>
+<h2>We hebben jullie<br><em>avond goed ontvangen.</em></h2>
+<div class="summary" id="flow-summary"></div>
+<p class="indicative" id="flow-indicative"></p>
+<p class="hint" style="max-width:420px;margin:0 auto 26px">We bekijken nu hoe VARGO het beste bij jullie feest past en laten snel van ons horen. Je hoeft nog niets definitief te beslissen.</p>
+<a class="button dark" href="/index.html">Terug naar VARGO <span>→</span></a>
+</div>
+</div>
+</section></main>
+<footer class="site-footer"><div class="wrap footer-top"><div class="brand"><i></i>VARGO</div><p>De bruine kroeg op locatie.<br>Oost-Vlaanderen.</p><nav class="footer-nav"><a href="/concept.html">Concept</a><a href="/aanbod.html">Aanbod</a><a href="/gelegenheden.html">Gelegenheden</a><a href="/galerij.html">Galerij</a><a href="/blog.html">Blog</a><a href="/aanvraag.html">Aanvraag</a></nav><div class="footer-contact"><a href="mailto:feestje@vargo.be">feestje@vargo.be</a><span>Telefoon: <a href="tel:+32470186726">0470 18 67 26</a></span><span>Instagram: <a href="https://instagram.com/vargo.be">@vargo.be</a></span></div></div><div class="wrap footer-bottom"><span>© Forma Concepts BV 2026</span><span>Gebouwd voor lange avonden.</span><span>Facebook: binnenkort</span></div></footer><script src="/assets/js/site.js" defer></script></body></html>
