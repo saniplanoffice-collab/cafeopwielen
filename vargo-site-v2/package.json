@@ -1,0 +1,8 @@
+{
+  "name": "vargo-static-site",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "build": "node scripts/build-blog.js"
+  }
+}
