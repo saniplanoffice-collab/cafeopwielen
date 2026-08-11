@@ -31,12 +31,15 @@ body.has-intro{overflow:hidden}
 
 .reveal{perspective:1800px;background:#080604;transition:opacity .24s ease .08s,visibility .24s ease .08s}
 .reveal.is-open{pointer-events:auto}
-.reveal-scene{position:absolute;z-index:0;inset:0;background:radial-gradient(130% 130% at 50% 30%,#2a1a10 0%,#160f09 60%,#0b0705 100%);filter:brightness(.7) saturate(.9);transform:scale(1.12);transition:filter 1.35s ease,transform 1.6s cubic-bezier(.2,.68,.16,1)}
+.reveal-scene{position:absolute;z-index:0;inset:0;background:radial-gradient(60% 70% at 50% 50%,rgba(245,166,35,.35) 0%,rgba(120,70,30,.14) 30%,#160f09 65%,#0b0705 100%);filter:brightness(.9) saturate(1);transform:scale(1.04);transition:filter 1.35s ease,transform 1.6s cubic-bezier(.2,.68,.16,1)}
 .reveal-scene:after{position:absolute;inset:0;background:rgba(10,8,6,.34);content:'';transition:opacity 1.25s ease}
 .door-stage{position:absolute;z-index:2;inset:0;perspective:1700px;transform-style:preserve-3d}
-.reveal-door{top:0;bottom:0;width:50%;overflow:hidden;background-color:#21150e;background-image:none;filter:none;box-shadow:inset 0 0 0 10px #100b08,inset 0 0 0 12px rgba(245,166,35,.12),inset 0 0 70px rgba(0,0,0,.78);transform-style:preserve-3d;backface-visibility:hidden;transition:transform 1.38s cubic-bezier(.72,.02,.12,1),box-shadow 1.15s ease;will-change:transform}
-.reveal-door:before{position:absolute;inset:0;background:linear-gradient(180deg,rgba(74,43,25,.28),rgba(0,0,0,.4));content:'';opacity:.5;mix-blend-mode:luminosity}
-.reveal-door:after{inset:34px;border-color:rgba(245,166,35,.19);box-shadow:inset 0 0 0 8px rgba(7,5,3,.62)}
+.reveal-door{top:0;bottom:0;width:50%;overflow:hidden;background-color:#0a0705;background-size:cover;background-repeat:no-repeat;filter:none;box-shadow:none;transform-style:preserve-3d;backface-visibility:hidden;transition:transform 1.38s cubic-bezier(.72,.02,.12,1),box-shadow 1.15s ease;will-change:transform}
+.door-left{background-image:url('/images/vargo-deur-links.webp');background-position:right center;background-size:cover}
+.door-right{background-image:url('/images/vargo-deur-rechts.webp');background-position:left center;background-size:cover}
+.reveal-door:before{content:none}
+.reveal-door:after{content:none}
+.reveal-door:after{content:none}
 .door-left{left:0;transform-origin:left center}
 .door-right{right:0;transform-origin:right center}
 .door-panels{position:absolute;inset:7.5% 8%;display:grid;grid-template-rows:1fr 1.28fr .72fr;gap:3.5%}
@@ -52,10 +55,10 @@ body.has-intro{overflow:hidden}
 .reveal-inner{z-index:5;transition:opacity .28s ease,transform .45s cubic-bezier(.3,.7,.2,1),filter .35s ease}
 .reveal-logo{animation:revealMark 2.4s ease-in-out infinite}
 @keyframes revealMark{0%,100%{opacity:.72;transform:translateY(0)}50%{opacity:1;transform:translateY(-3px)}}
-.reveal-skip{z-index:6}
+.reveal-skip{position:absolute;right:0;bottom:0;z-index:7;width:22%;height:12%;min-width:150px;min-height:44px;border:0;border-bottom:0;padding:0;background:transparent;color:transparent;cursor:pointer;font-size:0}
 .reveal.is-opening .reveal-inner{opacity:0;filter:blur(4px);transform:translateY(-12px) scale(.96)}
-.reveal.is-opening .door-left{box-shadow:inset 0 0 0 10px #100b08,inset 0 0 0 12px rgba(245,166,35,.12),18px 0 55px rgba(0,0,0,.82);transform:rotateY(-104deg) translateZ(8px)}
-.reveal.is-opening .door-right{box-shadow:inset 0 0 0 10px #100b08,inset 0 0 0 12px rgba(245,166,35,.12),-18px 0 55px rgba(0,0,0,.82);transform:rotateY(104deg) translateZ(8px)}
+.reveal.is-opening .door-left{box-shadow:24px 0 60px rgba(0,0,0,.85);transform:rotateY(-108deg) translateZ(6px)}
+.reveal.is-opening .door-right{box-shadow:-24px 0 60px rgba(0,0,0,.85);transform:rotateY(108deg) translateZ(6px)}
 .reveal.is-opening .door-light{width:38vw;opacity:0}
 .reveal.is-opening .door-threshold{width:100vw;opacity:0}
 .reveal.is-opening .reveal-scene{filter:brightness(.78) saturate(.94);transform:scale(1)}
@@ -184,9 +187,11 @@ body.has-intro{overflow:hidden}
 /* ===== Placeholder-beelden tot eigen kroegfoto's beschikbaar zijn ===== */
 .photo,.hero-image,.page-hero-image,.concept-photo,.intro-photo,.detail-tall,.detail-wide,.contact-image,.blog-feature .photo,.article-cover{
   background-image:
-    repeating-linear-gradient(135deg,rgba(245,166,35,.035) 0 2px,transparent 2px 15px),
-    radial-gradient(120% 120% at 30% 20%,#2a1a10 0%,#1b120b 55%,#120c07 100%)!important;
-  background-color:#1b120b!important;
+    radial-gradient(60% 50% at 50% 42%, rgba(245,166,35,.14) 0%, transparent 60%),
+    repeating-linear-gradient(90deg, rgba(0,0,0,.28) 0 1px, transparent 1px 4px, rgba(90,52,26,.14) 4px 6px, transparent 6px 46px),
+    radial-gradient(120% 120% at 50% 30%, #45291a 0%, #2a1a10 45%, #0d0805 100%)!important;
+  background-color:#2a1a10!important;
+  box-shadow:inset 0 0 120px 30px rgba(0,0,0,.55);
   position:relative;
 }
 .photo:before,.hero-image:before,.page-hero-image:before,.concept-photo:before,.intro-photo:before,.detail-tall:before,.detail-wide:before,.contact-image:before,.blog-feature .photo:before,.article-cover:before{
@@ -213,11 +218,13 @@ body.has-intro{overflow:hidden}
   color:rgba(237,228,216,.32);
   pointer-events:none;
 }
-/* Hero en grote sfeervlakken: warme achtergrond, geen V, geen label */
+/* Hero en grote sfeervlakken: variant B, ingetogen zodat tekst leest */
 .hero-image,.page-hero-image,.contact-image,.detail-tall,.detail-wide,.intro-photo,.concept-photo{
   background-image:
-    repeating-linear-gradient(135deg,rgba(245,166,35,.03) 0 2px,transparent 2px 16px),
-    radial-gradient(130% 120% at 25% 15%,#3a2415 0%,#241710 55%,#160f09 100%)!important;
+    radial-gradient(70% 55% at 55% 40%, rgba(245,166,35,.10) 0%, transparent 62%),
+    repeating-linear-gradient(90deg, rgba(0,0,0,.24) 0 1px, transparent 1px 4px, rgba(90,52,26,.12) 4px 6px, transparent 6px 48px),
+    radial-gradient(130% 120% at 55% 30%, #402618 0%, #2a1a10 40%, #0d0805 100%)!important;
+  box-shadow:inset 0 0 140px 40px rgba(0,0,0,.5);
 }
 .hero-image:before,.page-hero-image:before,.contact-image:before,.detail-tall:before,.detail-wide:before,.intro-photo:before,.concept-photo:before{content:none}
 .hero-image:after,.page-hero-image:after,.contact-image:after,.detail-tall:after,.detail-wide:after,.intro-photo:after,.concept-photo:after{content:none}
@@ -231,3 +238,20 @@ body.has-intro{overflow:hidden}
 
 /* Fix: hidden-attribuut moet display overschrijven (formulierknoppen) */
 [hidden]{display:none!important}
+
+/* ===== Openingsdeuren met geuploade beelden ===== */
+.visually-hidden{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.door-seam{position:absolute;z-index:4;top:0;bottom:0;left:50%;width:3px;transform:translateX(-50%);background:linear-gradient(180deg,transparent,rgba(245,166,35,.9) 12%,rgba(255,214,140,1) 50%,rgba(245,166,35,.9) 88%,transparent);box-shadow:0 0 22px rgba(245,166,35,.8),0 0 60px rgba(245,166,35,.4);opacity:.9;transition:opacity .5s ease .7s,width .9s cubic-bezier(.2,.66,.1,1)}
+.reveal.is-opening .door-seam{width:40vw;opacity:0}
+/* De echte klikbare knop, geplaatst over de knop in het beeld */
+.door-hit{position:absolute;z-index:6;inset:0;width:100%;height:100%;border:0;padding:0;background:transparent;cursor:pointer;font-size:0}
+.reveal.is-opening .door-hit{cursor:default}
+
+/* ===== Openingsdeuren op smalle schermen: volledig beeld, niets afgesneden ===== */
+@media (max-width:820px){
+  .door-stage{background-image:url('/images/vargo-deuren-mobiel.webp');background-position:center;background-size:contain;background-repeat:no-repeat;background-color:#0b0806;transition:transform 1.25s cubic-bezier(.2,.68,.16,1),opacity 1s ease}
+  .reveal{background:#0b0806}
+  .reveal-door{display:none}
+  .door-seam{display:none}
+  .reveal.is-opening .door-stage{transform:scale(1.4);opacity:0}
+}
