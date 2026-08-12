@@ -236,6 +236,7 @@
       });
     });
 
+    var flowFirstRender=true;
     function showStep(index){
       steps.forEach(function(s,i){s.classList.toggle('active',i===index);});
       current=index;
@@ -248,7 +249,10 @@
       errorEl.textContent='';
       var firstInput=steps[index].querySelector('input,select,textarea');
       if(firstInput)firstInput.focus({preventScroll:true});
-      flow.scrollIntoView({behavior:'smooth',block:'start'});
+      if(flowFirstRender){flowFirstRender=false;return;}
+      var headerH=90;
+      var top=flow.getBoundingClientRect().top+window.pageYOffset-headerH;
+      window.scrollTo({top:top,behavior:'smooth'});
     }
 
     function validateStep(index){

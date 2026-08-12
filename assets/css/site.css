@@ -74,7 +74,7 @@ body.has-intro{overflow:hidden}
 .site-entered .hero-copy>*:nth-child(3){animation-delay:.88s}
 .site-entered .hero-copy>*:nth-child(4){animation-delay:.98s}
 @keyframes heroEnter{from{transform:scale(1.08)}to{transform:scale(1)}}
-@keyframes heroCopyIn{from{opacity:0;transform:translateY(34px);clip-path:inset(0 0 100% 0)}to{opacity:1;transform:none;clip-path:inset(0)}}
+@keyframes heroCopyIn{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
 .page-hero-image{animation:pageHeroEnter 1.8s cubic-bezier(.2,.68,.16,1) both}
 @keyframes pageHeroEnter{from{opacity:.55;transform:scale(1.07)}to{opacity:1;transform:scale(1)}}
 
@@ -82,7 +82,8 @@ body.has-intro{overflow:hidden}
 .motion-ready .motion-item{opacity:0;transform:translate3d(0,44px,0);transition:opacity .82s ease var(--motion-delay,0ms),transform .9s cubic-bezier(.18,.7,.14,1) var(--motion-delay,0ms),clip-path .95s cubic-bezier(.18,.7,.14,1) var(--motion-delay,0ms)}
 .motion-ready .motion-item[data-motion="card"]{transform:translate3d(0,58px,0) scale(.985)}
 .motion-ready .motion-item[data-motion="image"]{clip-path:inset(0 0 16% 0);transform:translate3d(0,34px,0) scale(1.025)}
-.motion-ready .motion-item.is-visible{opacity:1;clip-path:inset(0);transform:none}
+.motion-ready .motion-item.is-visible{opacity:1;transform:none}
+.motion-ready .motion-item[data-motion="image"].is-visible{clip-path:inset(0)}
 .feature{transition:background-color .35s ease,transform .35s ease}
 .feature:hover{background:#171009;transform:translateY(-6px)}
 .feature b{display:inline-block;transition:color .35s ease,transform .35s ease}
@@ -186,12 +187,11 @@ body.has-intro{overflow:hidden}
 
 /* ===== Placeholder-beelden tot eigen kroegfoto's beschikbaar zijn ===== */
 .photo,.hero-image,.page-hero-image,.concept-photo,.intro-photo,.detail-tall,.detail-wide,.contact-image,.blog-feature .photo,.article-cover{
-  background-image:
-    radial-gradient(60% 50% at 50% 42%, rgba(245,166,35,.14) 0%, transparent 60%),
-    repeating-linear-gradient(90deg, rgba(0,0,0,.28) 0 1px, transparent 1px 4px, rgba(90,52,26,.14) 4px 6px, transparent 6px 46px),
-    radial-gradient(120% 120% at 50% 30%, #45291a 0%, #2a1a10 45%, #0d0805 100%)!important;
+  background-image:url('/images/vargo-wand-klein.webp')!important;
+  background-size:cover!important;
+  background-position:18% 30%!important;
   background-color:#2a1a10!important;
-  box-shadow:inset 0 0 120px 30px rgba(0,0,0,.55);
+  box-shadow:inset 0 0 70px 12px rgba(0,0,0,.32);
   position:relative;
 }
 .photo:before,.hero-image:before,.page-hero-image:before,.concept-photo:before,.intro-photo:before,.detail-tall:before,.detail-wide:before,.contact-image:before,.blog-feature .photo:before,.article-cover:before{
@@ -218,13 +218,12 @@ body.has-intro{overflow:hidden}
   color:rgba(237,228,216,.32);
   pointer-events:none;
 }
-/* Hero en grote sfeervlakken: variant B, ingetogen zodat tekst leest */
+/* Hero en grote sfeervlakken: echte wandtextuur */
 .hero-image,.page-hero-image,.contact-image,.detail-tall,.detail-wide,.intro-photo,.concept-photo{
-  background-image:
-    radial-gradient(70% 55% at 55% 40%, rgba(245,166,35,.10) 0%, transparent 62%),
-    repeating-linear-gradient(90deg, rgba(0,0,0,.24) 0 1px, transparent 1px 4px, rgba(90,52,26,.12) 4px 6px, transparent 6px 48px),
-    radial-gradient(130% 120% at 55% 30%, #402618 0%, #2a1a10 40%, #0d0805 100%)!important;
-  box-shadow:inset 0 0 140px 40px rgba(0,0,0,.5);
+  background-image:url('/images/vargo-wand.webp')!important;
+  background-size:cover!important;
+  background-position:22% 35%!important;
+  box-shadow:inset 0 0 110px 25px rgba(0,0,0,.30);
 }
 .hero-image:before,.page-hero-image:before,.contact-image:before,.detail-tall:before,.detail-wide:before,.intro-photo:before,.concept-photo:before{content:none}
 .hero-image:after,.page-hero-image:after,.contact-image:after,.detail-tall:after,.detail-wide:after,.intro-photo:after,.concept-photo:after{content:none}
@@ -255,3 +254,78 @@ body.has-intro{overflow:hidden}
   .door-seam{display:none}
   .reveal.is-opening .door-stage{transform:scale(1.4);opacity:0}
 }
+
+/* ===== Kroegwand als sitebrede achtergrond ===== */
+body{
+  background-color:#120c08;
+  background-image:url('/images/vargo-wand-klein.webp');
+  background-size:1400px auto;
+  background-position:center top;
+  background-attachment:fixed;
+  background-repeat:repeat;
+}
+/* Donkere sluier zodat alle tekst leesbaar blijft */
+body:before{
+  content:'';
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  background:linear-gradient(180deg,rgba(12,9,6,.74) 0%,rgba(12,9,6,.80) 50%,rgba(12,9,6,.86) 100%);
+  pointer-events:none;
+}
+/* Secties die eerder vlak zwart waren, laten de wand doorschemeren */
+.section.surface{background:rgba(20,13,8,.55)}
+.site-footer{background:rgba(8,6,4,.72)}
+.site-header{background:rgba(10,8,6,.55)}
+.site-header.is-scrolled{background:rgba(10,8,6,.9)}
+
+/* Fotovlakken aftekenen tegen de wandachtergrond */
+.photo,.intro-photo,.detail-tall,.detail-wide,.article-cover,.contact-image,.hero-image,.page-hero-image{
+  outline:1px solid rgba(199,154,90,.14);
+  outline-offset:-1px;
+}
+
+/* Hero-titel ademruimte zodat niets afgesneden wordt */
+.hero-copy h1,.page-hero h1,.top-copy h1,.article-hero h1,.flow-head h1{padding-bottom:.12em;overflow:visible}
+.hero-copy .lede{padding-bottom:.15em}
+
+/* ===== Contactpagina blokken ===== */
+.contact-blocks{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;padding-bottom:120px}
+.contact-block{padding:44px 34px;border:1px solid var(--line);background:rgba(20,13,8,.5)}
+.contact-block h2{margin:14px 0 16px;font-size:clamp(24px,2.4vw,32px);line-height:1.15;word-break:break-word}
+.contact-block p{margin:0 0 22px;color:var(--muted);font-size:14px;line-height:1.7}
+@media(max-width:900px){.contact-blocks{grid-template-columns:1fr;padding-bottom:80px}}
+
+/* Vanafprijs bij het aanvraagformulier */
+.flow-price{max-width:640px;margin:0 auto 34px;padding:16px 22px;border:1px solid rgba(199,154,90,.28);background:rgba(20,13,8,.5);color:var(--muted);font-size:13px;line-height:1.65;text-align:center}
+.flow-price b{color:var(--amber);font-weight:700}
+.flow-price a{color:var(--cream);text-decoration:underline;text-underline-offset:3px}
+
+/* Variatie in de textuur zodat kaartjes niet identiek ogen */
+.occasion:nth-child(1) .photo,.event-card:nth-child(1) .photo{background-position:15% 25%!important}
+.occasion:nth-child(2) .photo,.event-card:nth-child(2) .photo{background-position:62% 40%!important}
+.occasion:nth-child(3) .photo,.event-card:nth-child(3) .photo{background-position:30% 70%!important}
+.occasion:nth-child(4) .photo,.event-card:nth-child(4) .photo{background-position:80% 20%!important}
+.occasion:nth-child(5) .photo,.event-card:nth-child(5) .photo{background-position:45% 55%!important}
+.event-card:nth-child(6) .photo{background-position:70% 75%!important}
+.article-card:nth-child(1) .photo{background-position:20% 30%!important}
+.article-card:nth-child(2) .photo{background-position:65% 45%!important}
+.article-card:nth-child(3) .photo{background-position:35% 65%!important}
+.article-card:nth-child(4) .photo{background-position:75% 25%!important}
+
+/* Bedrijfsgegevens op de contactpagina */
+.company-details{padding-bottom:120px;color:var(--muted);font-size:13px;line-height:1.9}
+.company-details p:not(.eyebrow){margin:10px 0 0}
+@media(max-width:900px){.company-details{padding-bottom:80px}}
+/* Footerregel met bedrijfsgegevens netjes laten breken */
+.footer-bottom span:first-child{max-width:100%;line-height:1.6}
+
+/* ===== Algemene voorwaarden ===== */
+.legal{padding-bottom:130px}
+.legal-body{max-width:760px}
+.legal-body h2{margin:56px 0 18px;font-size:clamp(24px,2.6vw,32px);line-height:1.2;color:var(--cream)}
+.legal-body h2:first-child{margin-top:0}
+.legal-body p{margin:0 0 16px;color:#cbbdae;font-size:16px;line-height:1.85}
+.legal-body ul{margin:0 0 18px;padding-left:22px;color:#cbbdae;font-size:16px;line-height:1.85}
+.legal-body li{margin-bottom:9px}
+@media(max-width:900px){.legal{padding-bottom:80px}.legal-body p,.legal-body ul{font-size:15px}}

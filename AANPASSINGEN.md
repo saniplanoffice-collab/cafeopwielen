@@ -1,51 +1,53 @@
 # VARGO site, doorgevoerde aanpassingen
 
-Dit is versie twee van de site. Hieronder staat wat er veranderd is en wat nog aan jullie kant moet gebeuren.
+## Ronde 2, verbeteringen na kritische doorlichting
 
-## Wat is aangepast
+**Hero-tekst werd afgesneden, opgelost**
+De titel op de startpagina liep half weg door een animatie die de tekst te krap bijsneed. Die bijsnijding is verwijderd. De titel staat nu volledig, op elk scherm.
 
-**Lettertype**
-De hele site gebruikt nu Fraunces voor de titels en Inter voor de lopende tekst, ingeladen via Google Fonts. De oude standaardfonts (Georgia en Arial) zijn overal weg. Dit is de grootste visuele verandering.
+**Twee formulieren waren er, nu nog een**
+De wachtlijst is geschrapt. Alles loopt via het aanvraagformulier. De contactpagina is omgebouwd tot een echte contactpagina met telefoon, mail en sociale media, zonder concurrerend formulier. In de footer heet die link nu Contact in plaats van Wachtlijst.
 
-**Logo**
-Het logo is nu een getypte V in Fraunces, in amber, zonder kader. Dit geldt zowel in de header als in de openingsanimatie. Er is geen logobestand meer nodig.
+**Aanvraagformulier korter, van 5 naar 3 stappen**
+Verplicht zijn nu enkel datum, gemeente en contactgegevens. Gelegenheid, aantal gasten en wensen zijn optioneel. Drankvoorkeuren, merken, formule en bediening zijn eruit, die bespreek je aan de telefoon. Minder drempels betekent meer aanvragen.
 
-**Openingspagina**
-De donkere laag over de hero is vervangen door een verloop van links naar rechts, zodat een achtergrondfoto beter doorkomt en de tekst goed leesbaar blijft.
+**Vanafprijs staat nu vooraan**
+Bovenaan het aanvraagformulier staat dat een avond vanaf 895 euro start, met link naar de formules. Zo haakt niemand pas na drie stappen af.
 
-**Afbeeldingen**
-Alle oude foto's die niet klopten (tap aan de gastenkant, buitenbeelden) zijn eruit. Overal staat nu een nette placeholder in de huisstijl met de amber V en, waar passend, het label "beeld volgt". De galerij is vervangen door een "under construction" banner.
+**Formulier springt niet meer weg bij het laden**
+De pagina begon eerder meteen bij het formulier, waardoor de uitleg en de prijs onzichtbaar bleven. Opgelost.
 
-**Teksten**
-Alle teksten zijn herschreven in helder Nederlands zonder rare zinsbouw. Oost-Vlaanderen is overal Vlaanderen geworden, ook in de meta-data en de structured data voor Google.
+**FAQ aangepast met echte informatie**
+Het FAVV-antwoord is nu concreet: nootjes, chips, kaas en salami worden gedoogd zolang de koeling in orde is. Geen bereide gerechten of catering. De vragen over de drankvergunning en Unisono zijn tijdelijk verwijderd, want die stonden in de toekomende tijd en lazen onzeker. Zet ze terug zodra beide rond zijn.
 
-**FAQ**
-De volledige FAQ is vervangen door de acht echte antwoorden: afmetingen 8 op 4 meter, drankvergunning in aanvraag, geen FAVV nodig, Unisono in orde, tv aanwezig, leren tappen, met of zonder bediening, drank inbegrepen of zelf.
+**Galerij uit het menu**
+De galerij staat op under construction en was dus een dode klik. De pagina bestaat nog, maar staat niet meer in het menu. Zet hem terug zodra er foto's zijn.
 
-**Blog**
-Vier nieuwe artikels met echte inhoud:
-- Rookverbod op terrassen (met de correcte datum 1 januari 2027, niet 2026)
-- Hoeveel drank je echt nodig hebt (met concrete cijfers per gast)
-- Snacks bij de kroeg en de FAVV-regels
-- Een bruine kroeg op je feest, praktische checklist
+**Beeldvlakken minder repetitief**
+Alle kaartjes toonden dezelfde textuur op dezelfde manier. Elk kaartje toont nu een ander deel van de textuur.
 
-**Contactgegevens**
-Mailadres overal feestje@vargo.be. Facebook en Instagram allebei @vargo.be.
+**Bedrijfsgegevens in de footer**
+Forma Concepts BV, Bredestraat 30A, 9920 Lievegem, BTW BE 1039.945.512 staat nu in de footer van elke pagina. Ook toegevoegd aan de contactpagina en aan de structured data voor Google.
 
-**Formulieren**
-De homepage, concept en gelegenheden wijzen nu naar het aanvraagformulier in plaats van de wachtlijst. De wachtlijstpagina (contact.html) blijft bestaan. De bedankpagina is neutraal gemaakt zodat ze voor beide formulieren klopt.
+## Ronde 1, eerdere aanpassingen
 
-**Twee bugs opgelost**
-- De "Verstuur aanvraag" knop was op elke stap zichtbaar. Nu enkel op de laatste stap.
-- Dode verwijzingen naar niet-bestaande beeldbestanden zijn verwijderd, zodat de browser geen 404's meer maakt.
+Lettertype Fraunces en Inter over de hele site. Logo als getypte amber V zonder kader. Openingsscherm met deuren die opensplitsen. Warme wandtextuur als achtergrond in plaats van vlak zwart. Alle teksten herschreven met meer trots en vakmanschap. Oost-Vlaanderen overal naar Vlaanderen. Vier volledige blogs met echte inhoud. Mail op feestje@vargo.be, Facebook en Instagram op @vargo.be. Lancering eind november 2026 als richtpunt.
 
-## Wat nog aan jullie kant moet
+**Algemene voorwaarden toegevoegd**
+Er staat nu een volledige voorwaardenpagina op /voorwaarden.html, met twintig artikels: boeking, betaling (30 procent voorschot, saldo 14 dagen voor het feest), annulatieregeling in drie schijven, locatievereisten van 8 op 4 meter, aansprakelijkheid bij schade zonder waarborg, alcoholregels, weersomstandigheden, gegevensverwerking en bevoegde rechtbank. De link staat in elke footer en het aanvraagformulier verwijst ernaar bij de akkoordverklaring.
 
-**Eigen foto's plaatsen**
-De placeholders zijn tijdelijk. Zodra je eigen foto's van de kroeg hebt, plaats je die in de map /images/ en vervang je de placeholders. Belangrijk: neem foto's van het interieur van de kroeg met de tap aan de juiste kant. Laat me weten wanneer je de foto's hebt, dan koppel ik ze aan de juiste plekken.
+De basiszone is vastgelegd op 20 kilometer rond Lievegem, met daarbuiten 3,50 euro per bijkomende kilometer. Dat staat in de voorwaarden, op de aanbodpagina en als FAQ-vraag met rekenvoorbeeld.
 
-**FAVV nog aftoetsen**
-Het snacks-artikel en de FAQ stellen dat geen FAVV nodig is. Toets dit af met je boekhouder of het FAVV. Voor een commerciële BV die drank schenkt gelden mogelijk toch registratieverplichtingen. Beter dit zeker weten voor het live gaat.
+Onderbouwing van dat tarief: een opdracht vraagt vier ritten (leveren heen en terug, ophalen heen en terug). Kostprijs per kilometer voertuig is 0,48 euro (brandstof 0,23 bij diesel aan 2 euro, slijtage bestelwagen 0,20, slijtage kroeg 0,05). Daarbovenop komt rijtijd aan 20,80 euro werkgeverskost per uur. Eén extra kilometer enkele afstand kost daardoor 3,43 euro. Het tarief van 3,50 euro is dus kostendekkend met een kleine marge. De gratis zone van 20 kilometer kost ongeveer 69 euro per opdracht die je niet doorrekent.
 
-**Facebook-pagina**
-De footer linkt nu naar facebook.com/vargo.be. Zorg dat die pagina bestaat, anders krijg je een dode link.
+LET OP: laat de voorwaarden nakijken door een jurist of je boekhouder voor je grote bedragen factureert.
+
+## Wat nog moet gebeuren
+
+**Eigen foto's van de kroeg.** Dit blijft de grootste hefboom. Alle beeldvlakken tonen nu een textuur in plaats van je product. Zodra de kroeg af is, foto's laten maken van het interieur, de toog en de tap aan de bedieningskant.
+
+**Vergunningen afronden en terug in de FAQ zetten.** Drankvergunning en Unisono.
+
+**Facebook-pagina aanmaken.** De footer linkt naar facebook.com/vargo.be. Zorg dat die bestaat.
+
+**Lanceringsdatum bewaken.** De site belooft eind november 2026. Verschuift dat, pas de site aan en verwittig wie al geboekt heeft.
