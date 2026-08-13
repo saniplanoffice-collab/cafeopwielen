@@ -117,7 +117,7 @@
   body.appendChild(progress);
 
   var header=document.querySelector('.site-header');
-  var parallaxItems=reduced?[]:Array.prototype.slice.call(document.querySelectorAll('.hero-image, .page-hero-image, .intro-photo, .detail-tall, .detail-wide, .contact-image, .gallery .photo'));
+  var parallaxItems=reduced?[]:Array.prototype.slice.call(document.querySelectorAll('.hero-image, .page-hero-image'));
   parallaxItems.forEach(function(item){
     item.classList.add('parallax-photo');
     item.style.backgroundPositionY='calc(50% + var(--parallax-y, 0px))';
@@ -153,25 +153,8 @@
   });
   requestScrollMotion();
 
-  if(!reduced){
-    var wipe=document.createElement('div');
-    wipe.className='page-wipe';
-    wipe.setAttribute('aria-hidden','true');
-    body.appendChild(wipe);
-    document.querySelectorAll('a[href]').forEach(function(link){
-      link.addEventListener('click',function(event){
-        var href=link.getAttribute('href');
-        if(!href||href.charAt(0)==='#'||href.indexOf('mailto:')===0||link.target==='_blank'||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;
-        var target=new URL(link.href,window.location.href);
-        if(target.origin!==window.location.origin)return;
-        event.preventDefault();
-        wipe.classList.add('is-active');
-        window.setTimeout(function(){window.location.href=target.href},360);
-      });
-    });
-  }
 
-  // Fail-proof wachtlijstformulier via Netlify Forms
+  // Wachtlijstformulier via Netlify Forms via Netlify Forms
   var waitlistForm=document.querySelector('form[name="vargo-wachtlijst"]');
   if(waitlistForm){
     waitlistForm.addEventListener('submit',function(event){
@@ -191,7 +174,7 @@
         if(note){note.textContent='Versturen lukte niet. Probeer opnieuw of mail naar feestje@vargo.be.';note.style.color='#E8873A';}
       }
       var settled=false;
-      var safety=window.setTimeout(function(){if(!settled){settled=true;goThanks();}},8000);
+      var safety=window.setTimeout(function(){if(!settled){settled=true;showError();}},15000);
       fetch('/',{
         method:'POST',
         headers:{'Content-Type':'application/x-www-form-urlencoded'},
@@ -218,7 +201,7 @@
     var nextBtn=document.getElementById('flow-next');
     var submitBtn=document.getElementById('flow-submit');
     var errorEl=document.getElementById('flow-error');
-    var prijzen={'Select (vanaf 895)':'€ 895','Signature (vanaf 1295)':'€ 1.295','Reserve (vanaf 1595)':'€ 1.595','Grand Open (vanaf 1995)':'€ 1.995'};
+    var prijzen={'Select':'€ 895','Signature':'€ 1.295','Reserve':'€ 1.595','Grand Open':'€ 1.995'};
 
     // Multi-select choices (dranken)
     var multiGroup=flow.querySelector('[data-multi="dranken"]');
@@ -229,13 +212,37 @@
       multiGroup.querySelectorAll('input:checked').forEach(function(cb){picked.push(cb.value);});
       drankenField.value=picked.join(', ');
     }
+    // Klik op een link in een aanvinkveld opent de link, zonder het vinkje te wijzigen
+    flow.querySelectorAll('.choice a').forEach(function(link){
+      link.addEventListener('click',function(event){event.stopPropagation();});
+    });
     flow.querySelectorAll('.choice input[type="checkbox"]').forEach(function(cb){
+      // beginstand meteen juist zetten (bv. na terugkeer in het formulier)
+      cb.closest('.choice').classList.toggle('is-on',cb.checked);
       cb.addEventListener('change',function(){
         cb.closest('.choice').classList.toggle('is-on',cb.checked);
+        if(errorEl)errorEl.textContent='';
         syncDranken();
       });
     });
+    flow.querySelectorAll('.choice input[type="radio"]').forEach(function(radio){
+      radio.closest('.choice').classList.toggle('is-on',radio.checked);
+      radio.addEventListener('change',function(){
+        flow.querySelectorAll('.choice input[name="'+radio.name+'"]').forEach(function(other){other.closest('.choice').classList.toggle('is-on',other.checked);});
+        if(errorEl)errorEl.textContent='';
+      });
+    });
 
+    // Formule uit de aanbodpagina vooraf selecteren (?formule=Signature)
+    try{
+      var requested=new URLSearchParams(window.location.search).get('formule');
+      if(requested){
+        var match=flow.querySelector('input[name="formule"][value="'+requested.replace(/"/g,'\\"')+'"]');
+        if(match){match.checked=true;match.dispatchEvent(new Event('change'));}
+      }
+    }catch(e){}
+
+    flow.setAttribute('novalidate','novalidate');
     var flowFirstRender=true;
     function showStep(index){
       steps.forEach(function(s,i){s.classList.toggle('active',i===index);});
@@ -259,7 +266,16 @@
       var required=steps[index].querySelectorAll('[required]');
       for(var i=0;i<required.length;i++){
         var f=required[i];
-        if((f.type==='checkbox'&&!f.checked)||(!f.value||!f.value.trim())){
+        if(f.type==='checkbox'&&!f.checked){
+          errorEl.textContent=f.name==='voorwaarden'
+            ? 'Vink de algemene voorwaarden aan om je aanvraag te versturen.'
+            : 'Vink dit vakje aan om verder te gaan.';
+          f.focus({preventScroll:true});
+          return false;
+        }
+        if(f.type==='radio'){
+          if(!steps[index].querySelector('input[name="'+f.name+'"]:checked')){errorEl.textContent='Kies één optie om verder te gaan.';f.focus({preventScroll:true});return false;}
+        }else if(f.type!=='checkbox'&&(!f.value||!f.value.trim())){
           errorEl.textContent='Vul dit veld nog even in om verder te gaan.';
           f.focus({preventScroll:true});
           return false;
@@ -270,6 +286,10 @@
 
     nextBtn.addEventListener('click',function(){if(validateStep(current))showStep(current+1);});
     backBtn.addEventListener('click',function(){if(current>0)showStep(current-1);});
+    // Eigen validatie vóór de browser zijn standaardmelding toont
+    submitBtn.addEventListener('click',function(event){
+      if(!validateStep(current)){event.preventDefault();}
+    });
 
     flow.addEventListener('submit',function(event){
       var honeypot=flow.querySelector('[name="bot-field"]');
@@ -288,7 +308,7 @@
         if(shell)shell.querySelector('#vargo-flow').style.display='none';
         // Samenvatting opbouwen
         var g=function(n){var el=flow.querySelector('[name="'+n+'"]');return el?el.value:'';};
-        var rows=[['Datum',g('datum')],['Gemeente',g('gemeente')],['Gelegenheid',g('gelegenheid')],['Gasten',g('gasten')],['Formule',g('formule')],['Dranken',g('dranken')]];
+        var rows=[['Datum',g('datum')],['Gemeente',g('gemeente')],['Gelegenheid',g('gelegenheid')],['Gasten',g('gasten')],['Formule',g('formule')],['Dranken',g('dranken')],['Bediening',g('bediening')]];
         var summary=document.getElementById('flow-summary');
         summary.innerHTML=rows.filter(function(r){return r[1];}).map(function(r){return '<div><span>'+r[0]+'</span><b>'+r[1]+'</b></div>';}).join('');
         var formule=g('formule');
@@ -303,7 +323,7 @@
         errorEl.textContent='Versturen lukte niet. Probeer opnieuw of mail naar feestje@vargo.be.';
       }
       var settled=false;
-      var safety=window.setTimeout(function(){if(!settled){settled=true;showDone();}},8000);
+      var safety=window.setTimeout(function(){if(!settled){settled=true;showError();}},15000);
       fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:encoded.toString()})
         .then(function(r){if(settled)return;settled=true;window.clearTimeout(safety);if(r.ok){showDone();}else{showError();}})
         .catch(function(){if(settled)return;settled=true;window.clearTimeout(safety);showError();});

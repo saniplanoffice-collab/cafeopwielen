@@ -1,8 +1,8 @@
 {
   "name": "vargo-static-site",
   "private": true,
-  "version": "1.0.0",
+  "version": "2.1.0",
   "scripts": {
-    "build": "node scripts/build-blog.js"
+    "build": "node scripts/build-gelegenheden.js && node scripts/validate-site.js"
   }
 }
