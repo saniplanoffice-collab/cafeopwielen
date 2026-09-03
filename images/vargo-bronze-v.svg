@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 112 124" role="img" aria-labelledby="title desc">
+  <title id="title">VARGO bronzen V</title>
+  <desc id="desc">Een sculpturale, bronzen uitvoering van het VARGO V-logo.</desc>
+  <defs>
+    <linearGradient id="edge" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6d3b13"/>
+      <stop offset=".46" stop-color="#241207"/>
+      <stop offset="1" stop-color="#9d6430"/>
+    </linearGradient>
+    <linearGradient id="bronze" x1=".1" y1="0" x2=".85" y2="1">
+      <stop offset="0" stop-color="#fff1bf"/>
+      <stop offset=".16" stop-color="#c99a57"/>
+      <stop offset=".43" stop-color="#714019"/>
+      <stop offset=".67" stop-color="#e4bc72"/>
+      <stop offset="1" stop-color="#55280d"/>
+    </linearGradient>
+    <radialGradient id="glint" cx="28%" cy="15%" r="72%">
+      <stop offset="0" stop-color="#fff7d9" stop-opacity=".82"/>
+      <stop offset=".26" stop-color="#d7a863" stop-opacity=".18"/>
+      <stop offset="1" stop-color="#6a3815" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="shadow" x="-45%" y="-35%" width="190%" height="200%">
+      <feDropShadow dx="7" dy="9" stdDeviation="5" flood-color="#030201" flood-opacity=".8"/>
+      <feDropShadow dx="0" dy="0" stdDeviation="2" flood-color="#f4ca7d" flood-opacity=".26"/>
+    </filter>
+  </defs>
+  <!-- Omtrek is rechtstreeks afgeleid van VARGO-simple-V-90mm-4mm.stl. -->
+  <g filter="url(#shadow)" transform="translate(9 8)">
+    <path d="M0 0L39.774 103.935H50.226L90 0L57.774 3.774L52.258 22.354L58.645 27.58L45 67.645L31.355 27.58L37.742 22.354L32.226 3.774Z" fill="url(#edge)" transform="translate(5 6)"/>
+    <path d="M0 0L39.774 103.935H50.226L90 0L57.774 3.774L52.258 22.354L58.645 27.58L45 67.645L31.355 27.58L37.742 22.354L32.226 3.774Z" fill="url(#bronze)"/>
+    <path d="M0 0L39.774 103.935H50.226L90 0L57.774 3.774L52.258 22.354L58.645 27.58L45 67.645L31.355 27.58L37.742 22.354L32.226 3.774Z" fill="url(#glint)"/>
+  </g>
+</svg>
