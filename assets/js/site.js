@@ -4,6 +4,9 @@
   var reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var reveal=document.querySelector('[data-reveal-screen]');
   var openButton=document.querySelector('[data-open-kroeg]');
+  // Houd deze overgang gelijk met de langste deurtransitie in site.css.
+  // Zo verdwijnt het introvenster niet terwijl de deuren nog openen.
+  var INTRO_HANDOFF_MS=1360;
 
   root.classList.add('motion-ready');
 
@@ -22,13 +25,15 @@
     reveal.classList.add('is-opening');
     if(document.activeElement&&reveal.contains(document.activeElement))document.activeElement.blur();
     reveal.setAttribute('aria-hidden','true');
-    body.classList.add('site-entered');
+    // Eén paint tussen start en de hero-animatie voorkomt een zichtbare sprong
+    // op tragere mobiele toestellen.
+    window.requestAnimationFrame(function(){body.classList.add('site-entered');});
     window.setTimeout(function(){
       reveal.classList.add('is-hidden');
       body.classList.remove('has-intro');
       var firstLink=document.querySelector('.hero-actions a');
       if(firstLink)firstLink.focus({preventScroll:true});
-    },quick?160:1180);
+    },quick?160:INTRO_HANDOFF_MS);
   }
 
   document.querySelectorAll('[data-open-kroeg]').forEach(function(button){
@@ -83,7 +88,7 @@
       if(item.classList.contains('motion-item'))return;
       item.classList.add('motion-item');
       item.setAttribute('data-motion',type||'rise');
-      item.style.setProperty('--motion-delay',((index%(stagger||6))*70)+'ms');
+      item.style.setProperty('--motion-delay',((index%(stagger||6))*35)+'ms');
       motionItems.push(item);
     });
   }
@@ -105,7 +110,7 @@
           observer.unobserve(entry.target);
         }
       });
-    },{threshold:.08,rootMargin:'0px 0px -7% 0px'});
+    },{threshold:.01,rootMargin:'0px 0px 18% 0px'});
     motionItems.forEach(function(item){observer.observe(item)});
   }else{
     motionItems.forEach(function(item){item.classList.add('is-visible')});
@@ -202,6 +207,90 @@
     var submitBtn=document.getElementById('flow-submit');
     var errorEl=document.getElementById('flow-error');
     var prijzen={'Select':'€ 895','Signature':'€ 1.295','Reserve':'€ 1.595','Grand Open':'€ 1.995'};
+    // Deze URL is publiek, maar de app bewaart zelf alle gevoelige sleutels.
+    // Een aanvraag gaat rechtstreeks vanaf vargo.be naar de beveiligde leadgrens.
+    var leadEndpoint='https://folipduhllpfkiqpqacg.supabase.co/functions/v1/website-lead';
+    var submissionId=null;
+
+    var aanvraagWaarden={
+      flexibiliteit:{'Vaste datum':'fixed','Enkele weken speling':'weeks','Volledig flexibel':'flexible'},
+      gelegenheid:{
+        'Verjaardag':'birthday','Tuinfeest':'garden_party','Familiefeest':'family_party',
+        'Huwelijk':'wedding','Bedrijfsfeest':'company_party','Communie of lentefeest':'communion',
+        'Vrijgezellenfeest':'bachelor_party','Match night / sportavond':'match_night','Andere':'other'
+      },
+      gasten:{'Tot 20':'under_20','20 tot 40':'20_40','40 tot 75':'40_75','75 tot 150':'75_150','Meer dan 150':'over_150'},
+      formule:{'Adviseer mij':'advice','Select':'select','Signature':'signature','Reserve':'reserve','Grand Open':'grand_open'},
+      dranken:{
+        'Pils':'pils','Speciaalbier':'special_beer','Wijn':'wine','Prosecco / spritz':'spritz',
+        'Gin-tonic':'gin_tonic','Whisky / rum':'whisky_rum','Alcoholvrij':'non_alcoholic','Koffie':'coffee'
+      },
+      bediening:{'':'not_sure','Zelf schenken':'self_service','Bediening gewenst':'staffed','Adviseer mij':'advice'}
+    };
+
+    function uuidVoorAanvraag(){
+      if(window.crypto&&typeof window.crypto.randomUUID==='function')return window.crypto.randomUUID();
+      if(!window.crypto||typeof window.crypto.getRandomValues!=='function')return null;
+      var bytes=new Uint8Array(16);window.crypto.getRandomValues(bytes);
+      bytes[6]=(bytes[6]&15)|64;bytes[8]=(bytes[8]&63)|128;
+      var hex=Array.prototype.map.call(bytes,function(b){return b.toString(16).padStart(2,'0');}).join('');
+      return hex.slice(0,8)+'-'+hex.slice(8,12)+'-'+hex.slice(12,16)+'-'+hex.slice(16,20)+'-'+hex.slice(20);
+    }
+
+    function zoekUtm(){
+      var utm={};var zoek=new URLSearchParams(window.location.search);
+      ['utm_source','utm_medium','utm_campaign','utm_term','utm_content'].forEach(function(naam){
+        if(zoek.get(naam))utm[naam]=zoek.get(naam);
+      });
+      return utm;
+    }
+
+    function waardeVoorApp(naam){
+      var veld=flow.querySelector('[name="'+naam+'"]');
+      return veld&&typeof veld.value==='string'?veld.value.trim():'';
+    }
+
+    function keuzeVoorApp(groep,waarde){
+      return aanvraagWaarden[groep][waarde]||null;
+    }
+
+    function aanvraagVoorApp(){
+      submissionId=submissionId||uuidVoorAanvraag();
+      var dranken=waardeVoorApp('dranken').split(',').map(function(waarde){
+        return keuzeVoorApp('dranken',waarde.trim());
+      }).filter(Boolean);
+      return {
+        client_submission_id:submissionId,
+        terms_accepted:true,
+        consent_version:'vargo-website-2026-09',
+        first_name:waardeVoorApp('voornaam'),last_name:waardeVoorApp('naam'),
+        email:waardeVoorApp('email'),phone:waardeVoorApp('telefoon'),
+        requested_date:waardeVoorApp('datum')||null,alternative_date:waardeVoorApp('datum-alt')||null,
+        date_flexibility:keuzeVoorApp('flexibiliteit',waardeVoorApp('flexibel')),
+        postal_code:waardeVoorApp('postcode')||null,municipality:waardeVoorApp('gemeente')||null,
+        occasion:keuzeVoorApp('gelegenheid',waardeVoorApp('gelegenheid')),
+        guest_range:keuzeVoorApp('gasten',waardeVoorApp('gasten')),
+        package_preference:keuzeVoorApp('formule',waardeVoorApp('formule')),
+        drink_preferences:dranken,
+        service_preference:keuzeVoorApp('bediening',waardeVoorApp('bediening')),
+        favorite_brands:waardeVoorApp('merken')||null,event_notes:waardeVoorApp('wens')||null,
+        page_url:window.location.href,referrer:document.referrer||null,utm:zoekUtm(),
+        vargo_bericht_extra:waardeVoorApp('bot-field')
+      };
+    }
+
+    function stuurNaarVargoApp(){
+      var payload=aanvraagVoorApp();
+      if(!payload.client_submission_id)return Promise.reject(new Error('Geen veilige inzendingssleutel beschikbaar.'));
+      return fetch(leadEndpoint,{
+        method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)
+      }).then(function(response){
+        return response.json().catch(function(){return null;}).then(function(body){
+          if(response.ok&&body&&body.ok===true)return body;
+          throw new Error(body&&body.reason?body.reason:'VARGO-app antwoordde niet geldig.');
+        });
+      });
+    }
 
     // Multi-select choices (dranken)
     var multiGroup=flow.querySelector('[data-multi="dranken"]');
@@ -310,7 +399,11 @@
         var g=function(n){var el=flow.querySelector('[name="'+n+'"]');return el?el.value:'';};
         var rows=[['Datum',g('datum')],['Gemeente',g('gemeente')],['Gelegenheid',g('gelegenheid')],['Gasten',g('gasten')],['Formule',g('formule')],['Dranken',g('dranken')],['Bediening',g('bediening')]];
         var summary=document.getElementById('flow-summary');
-        summary.innerHTML=rows.filter(function(r){return r[1];}).map(function(r){return '<div><span>'+r[0]+'</span><b>'+r[1]+'</b></div>';}).join('');
+        while(summary.firstChild)summary.removeChild(summary.firstChild);
+        rows.filter(function(r){return r[1];}).forEach(function(r){
+          var row=document.createElement('div');var label=document.createElement('span');var value=document.createElement('b');
+          label.textContent=r[0];value.textContent=r[1];row.appendChild(label);row.appendChild(value);summary.appendChild(row);
+        });
         var formule=g('formule');
         var ind=document.getElementById('flow-indicative');
         if(prijzen[formule]){ind.innerHTML='Indicatieve vanafprijs voor deze formule: <b>'+prijzen[formule]+'</b>';}
@@ -324,8 +417,14 @@
       }
       var settled=false;
       var safety=window.setTimeout(function(){if(!settled){settled=true;showError();}},15000);
+      // Netlify bewaart nog steeds een onafhankelijke kopie voor de bestaande
+      // e-mailmelding. De app is de bron voor een geslaagde aanvraag: pas als
+      // die ontvangstfunctie antwoordt, tonen we de bevestiging aan de klant.
       fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:encoded.toString()})
-        .then(function(r){if(settled)return;settled=true;window.clearTimeout(safety);if(r.ok){showDone();}else{showError();}})
+        .then(function(r){if(!r.ok)console.warn('Netlify kon de reservekopie niet bewaren.');})
+        .catch(function(){console.warn('Netlify kon de reservekopie niet bewaren.');});
+      stuurNaarVargoApp()
+        .then(function(){if(settled)return;settled=true;window.clearTimeout(safety);showDone();})
         .catch(function(){if(settled)return;settled=true;window.clearTimeout(safety);showError();});
     });
 
